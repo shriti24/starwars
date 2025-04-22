@@ -1,2 +1,5 @@
 # starwars
-List all the starwar character. 
+
+    # List all the starwars character. 
+    # Provide serch functionality.
+    # Allows to add favourites.
