@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import { InputBase } from '@mui/material';
+// import * as img from '../static/sky.jpeg';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.common.white, 0.75),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.common.white, 0.90),
   },
   marginLeft: 0,
   width: '100%',
@@ -15,6 +16,7 @@ export const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(1),
     width: 'auto',
   },
+  margin: 2,
 }));
 
 
@@ -44,3 +46,10 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export const Content = styled('div')`
+    border: 1px solid #000;
+    background-image: url(${require(`../static/sky.jpeg`).default});
+    // width: 2000px;
+    // height: 2000px;
+`;

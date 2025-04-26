@@ -1,15 +1,31 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import React from 'react'
-import {Search, SearchIconWrapper, StyledInputBase} from '../style';
 import Box from '@mui/material/Box';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { useState } from 'react';
+import Favourites from './Favourites';
  
 const Header = () => {
+  const[showFavourites, setShowFavourites] = useState(false);
+  const favorites = useSelector((state: any) => state?.favourite?.characters);
+  const favoritesCount = favorites?.length || 0; 
+  const navigate = useNavigate();
+
+  const handleNavigate = (location:string) => {
+    navigate(location);
+  }
+  const handleClose = (_event: any) => {
+    debugger
+    _event.stopPropagation();
+    _event.preventDefault();
+  setShowFavourites(false);
+}
   return (
      <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static" style={{ backgroundColor: 'black' }}>
-        <Toolbar>
+    <AppBar position="static" style={{ backgroundColor: 'black', padding: 2}}>
+        <Toolbar >
           <IconButton
             size="large"
             edge="start"
@@ -24,18 +40,16 @@ const Header = () => {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            MUI
+          ><label onClick={() => handleNavigate('/')} style={{ cursor: 'pointer', margin: 4 }}>
+            <img id="local-nav-logo-desktop" src="https://lumiere-a.akamaihd.net/v1/images/sw_logo_stacked_2x-52b4f6d33087_7ef430af.png?region=0,0,586,254" alt="Star Wars Logo" width="200px"></img>
+            </label>
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          <div >
+          <Button variant="outlined" color="info" onClick={()=> setShowFavourites(true)} >
+            <FavoriteIcon sx={{ color: 'white', marginRight: 1 }} />
+            <label style={{ color: 'red'}}>{favoritesCount} </label>
+          </Button>
+            {showFavourites && (<Favourites close={handleClose} />)}</div>
         </Toolbar>
       </AppBar></Box>
   )
