@@ -20,8 +20,16 @@
     - https://www.swapi.tech/api/people/?name=${name} - for searching 
     - https://swapi.tech/api/people?page=${page}&limit=10 - list all character names with pagination .
 
-    #test
+    ##test
     Unit test for Header component with RTL.
+
+    ##Considerations in this project. 
+        - For the Bonus ability I would push the height or gender .
+            - Input box to input values 
+            - save it in the store using redux as a map[] wich has uid: {gender , height} . If any value existing in this store take from here or from Api.
+        - Write test cases for all the component. also install enzyme as there are many 3rd party libs. 
+        - For real time I would avoid so many mui components and create own User-defined components.
+        - keep different Types files for components. 
 
     ## Installation
 
@@ -42,3 +50,4 @@
 
     ## Contributing
     @shriti24
+
