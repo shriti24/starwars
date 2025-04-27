@@ -17,7 +17,6 @@ const Header = () => {
     navigate(location);
   }
   const handleClose = (_event: any) => {
-    debugger
     _event.stopPropagation();
     _event.preventDefault();
   setShowFavourites(false);
@@ -45,9 +44,9 @@ const Header = () => {
             </label>
           </Typography>
           <div >
-          <Button variant="outlined" color="info" onClick={()=> setShowFavourites(true)} >
-            <FavoriteIcon sx={{ color: 'white', marginRight: 1 }} />
-            <label style={{ color: 'red'}}>{favoritesCount} </label>
+          <Button variant="outlined"  color="info" onClick={()=> setShowFavourites(true)} >
+            <FavoriteIcon sx={{ color: 'white', marginRight: 2 , padding:1}} />
+            <label style={{ color: 'red', fontSize:'25px',fontWeight:'bold'}}>{favoritesCount} </label>
           </Button>
             {showFavourites && (<Favourites close={handleClose} />)}</div>
         </Toolbar>

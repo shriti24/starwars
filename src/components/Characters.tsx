@@ -1,14 +1,10 @@
-import { Box, Button, Card, CircularProgress, Container, Grid, IconButton, Pagination } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import { Box,  Card, CircularProgress, Container, Grid,  Pagination } from '@mui/material';
+import React, { useEffect, useRef, useTransition } from 'react';
 import { CharacterProps, SearchedCharacterProps } from '../utils/types';
 import { fetchSearchCharacter, getCharacterList } from '../utils/services';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { add } from '../components/reducer/addReducer';
-import { Search, SearchIconWrapper, StyledInputBase } from '../style';
-import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
-
+import SearchInput from './SearchInput';
 
 export const CharacterCard = ({ uid, name , gender  }: any) => {
   return <Card  sx={{ width: 160, height: 180, margin: 1, padding: 1, }}>
@@ -19,23 +15,34 @@ export const CharacterCard = ({ uid, name , gender  }: any) => {
         </Card>
 }
 
+export const BackgroundContainer = styled('div')({
+    width: '100%',
+    height: '80vh',
+    backgroundImage: `url("https://images.unsplash.com/photo-1611366326837-84268a033366?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
+    backgroundRepeat: 'repeat',
+    backgroundSize: 'auto',
+    backgroundPosition: 'center',
+    zIndex: -1,
+  });
+
 const Characters: React.FC<{}> = () => {
 const [characters, setCharacters] = React.useState<CharacterProps[]>([]);
 const [loading, setLoading] = React.useState(true);
 const [error, setError] = React.useState<string | null>(null);
 const [page, setPage] = React.useState(1);
-const [searchTerm, setSearchTerm] = React.useState('');
-  const [searchResults, setSearchResults] = React.useState<SearchedCharacterProps[]>([]);
-  const ref = useRef(0);
+const [searchResults, setSearchResults] = React.useState<SearchedCharacterProps[]>([]);
+const ref = useRef(0);
 
 const fetchCharacters = async () => {
-  setLoading(true);
+  setLoading(true); 
   setError(null);
+  setSearchResults([]);
   try {
      const {results, total_pages} = await getCharacterList(page);
 
     if (results?.length === 0) {
         setError('No characters found');
+        setLoading(false);
         return;
     }   
     setCharacters([...results]);
@@ -48,81 +55,60 @@ const fetchCharacters = async () => {
     }
    }
     setLoading(false);
-
-  return () => {
-    setCharacters([]);
-    setLoading(false);
-    setError(null);
-  }
- }
+}
+  
   const handlePageChange = (e: any, pageNo: number) => {
     console.log(pageNo);
     setPage(pageNo);
   };
   
   useEffect(() => {
-    if (!searchTerm) {
       fetchCharacters(); 
-      setSearchResults([]);
-    }
-  }, [searchTerm, page]);
-    useEffect(() => {
-      fetchCharacters();
-    }, [page]);
+  }, []);
 
+  useEffect(() => {
+      fetchCharacters();
+  }, [page]);
+
+  
+  const handleSearch = async (searchTerm: any) => {
+    setLoading(true);
+    const filteredCharacters = await fetchSearchCharacter(searchTerm);
+    if (filteredCharacters?.length === 0) {
+        setError('No characters found');
+        setLoading(false);
+      return;
+      
+    } 
+    console.log(filteredCharacters);
+    setSearchResults([...filteredCharacters]);
+    setCharacters([]);
+   
+    setLoading(false);
+  };
+
+  
   if(loading) {
     return <CircularProgress />
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-
-  const handleSearch = async (searchTerm: string) => {
-    const filteredCharacters = await fetchSearchCharacter(searchTerm);
-    console.log(filteredCharacters);
-    setSearchResults([...filteredCharacters]);
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      handleSearch(searchTerm);
-    }
-  };
-  const BackgroundContainer = styled('div')({
-    width: '100%',
-    height: '100%',
-    backgroundImage: `url("https://media.istockphoto.com/id/177247796/photo/night-sky-filled-with-stars-and-nebulae.jpg?s=1024x1024&w=is&k=20&c=iKWp9X2wvjXd5kb0xIV5K_tLzrOSL6FGZggDwDpFXOI=")`,
-    backgroundRepeat: 'repeat',
-  });
-  
   return (
     <BackgroundContainer>
-    <Container sx={{ height: '80vh'  }} >
-       <Search>
-        <SearchIconWrapper>
-          <SearchIcon onClick={() => handleSearch(searchTerm)}/>
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ 'aria-label': 'search' }}
-          onChange={(e) => { setSearchTerm(e.target.value) }}
-          onKeyDown={handleKeyPress}
-        />
-      </Search>
-
-      <Box sx={{  height: '80vh', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: 2 }}  >
-      {searchResults?.length > 0 ? searchResults.map((character) => (
-        <CharacterCard key={character?.uid} uid={character?.uid} name={character?.properties?.name} gender={character?.properties?.gender} />
-      )) : characters?.length > 0 && characters?.map((character) => (
-        <CharacterCard key={character?.uid} uid={character?.uid} name={character?.name} gender={character?.gender}  />
-      ))}
-      </Box>
-
-      <Grid container justifyContent="flex-end">
-      <Pagination count={ref.current} page={page} onChange={ (e, pageNo)=>{handlePageChange(e, pageNo)}} sx={{marginTop:"-50px" , marginRight:0, position:'absolute'}} />
-      </Grid>
+    <Container sx={{ height: '85vh'  }} >
+        <SearchInput onSearch={handleSearch} onReset={fetchCharacters} />
+        {error ? <div style={{ color: 'red', fontSize: 20 }}>{error}</div> :
+          <>
+          <Box sx={{  height: '80vh', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: 2 }}  >
+          {searchResults?.length > 0 ? searchResults.map((character) => (
+            <CharacterCard key={character?.uid} uid={character?.uid} name={character?.properties?.name} gender={character?.properties?.gender} />
+          )) : characters?.length > 0 && characters?.map((character) => (
+            <CharacterCard key={character?.uid} uid={character?.uid} name={character?.name} gender={character?.gender}  />
+          ))}
+          </Box>
+          <Grid container justifyContent="flex-end">
+          <Pagination count={ref.current} page={page} onChange={ (e, pageNo)=>{handlePageChange(e, pageNo)}} sx={{marginTop:"-50px" , marginRight:0, position:'absolute'}} />
+            </Grid>
+          </>}
       </Container>
       </BackgroundContainer>);
 };

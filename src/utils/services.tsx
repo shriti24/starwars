@@ -1,4 +1,3 @@
-import { CharacterProps } from "./types";
 
  export async function getCharacterDetails(characterId: string): Promise<any> {
  try {
@@ -46,5 +45,18 @@ export const fetchSearchCharacter = async (name: string): Promise<any> => {
     return data?.result;
   } catch (error) {
     console.error('Error fetching homeworld details:', error);
+  }
+}
+export const getOtherDetails = async (url: string[]): Promise<[] | undefined> => { 
+  try {
+    const response = await Promise.all([url.map((url) => fetch(url))]).then((values) => {
+      console.log('values', values);
+    }).catch((error) => {
+      console.error('Error fetching other details:', error);
+      return undefined;
+    });
+  } catch (error) {
+    console.error('Error fetching other details:', error);
+    return undefined;
   }
 }

@@ -1,7 +1,7 @@
 import React, {  useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { CharacterDetailsProps, CharacterProps } from '../utils/types';
-import { getCharacterDetails } from '../utils/services';
+import { CharacterDetailsProps } from '../utils/types';
+import { getCharacterDetails, getOtherDetails } from '../utils/services';
 import SkeletonChildren from './useSkeleton';
 import { Box, Button, Grid } from '@mui/material';
 import { CHARACTER_DETAILS } from '../utils/constants';
@@ -9,6 +9,7 @@ import HomeWorldPage from './HomeWorldPge';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch } from 'react-redux';
 import { add } from './reducer/addReducer';
+import { BackgroundContainer } from './Characters';
 
 
 const CharacterPage = () => {
@@ -18,11 +19,20 @@ const CharacterPage = () => {
   
  const fetchCharacterDetails = async () => {
   try {
-   if (!uid) {
-    return "Character ID is missing";
-   }
-   const response = await getCharacterDetails(uid);
-   setCharacterDetails({ ...response?.result.properties , uid: response?.result.uid });
+    if (!uid) {
+      return "Character ID is missing";
+    }
+    const response = await getCharacterDetails(uid);
+    const { result } = response;
+
+    if (result?.properties) {
+      const { films } = result?.properties;
+      console.log('films', films);
+      if (films?.length > 0) {
+        await getOtherDetails(films);
+      }
+    }
+    setCharacterDetails({ ...response?.result.properties , uid: response?.result.uid });
    } catch (error) {
     console.error('Error fetching character details:', error);
    }
@@ -42,8 +52,9 @@ const CharacterPage = () => {
       dispatch(add(_addedCharacter));
     };
   
- return (
-   <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' , backgroundColor: 'black', color: 'white'}}>
+  return (
+   <BackgroundContainer>
+   <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' , color: 'white'}}>
      <Box sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginBottom: 2 }}>
      <Button variant="contained" sx={{ color: 'red', background: "white", cursor: 'pointer', }} onClick={() => addToFavorites(characterDetails)} >
        <FavoriteIcon fontSize='large' />
@@ -56,7 +67,7 @@ const CharacterPage = () => {
          <HomeWorldPage characterDetails={characterDetails} />
        </>}
       </Grid>
-  </div>
+  </div></BackgroundContainer>
  );
 };
 
