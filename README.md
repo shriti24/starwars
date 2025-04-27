@@ -20,7 +20,8 @@
     - https://www.swapi.tech/api/people/?name=${name} - for searching 
     - https://swapi.tech/api/people?page=${page}&limit=10 - list all character names with pagination .
 
-
+    #test
+    Unit test for Header component with RTL.
 
     ## Installation
 
@@ -40,8 +41,4 @@
     2. Open your browser and navigate to `http://localhost:3000`.
 
     ## Contributing
-
-
-    ## License
-
-    This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+    @shriti24

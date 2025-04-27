@@ -49,7 +49,6 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export const Content = styled('div')`
     border: 1px solid #000;
-    background-image: url(${require(`../static/sky.jpeg`).default});
     // width: 2000px;
     // height: 2000px;
 `;

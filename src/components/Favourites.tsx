@@ -20,20 +20,20 @@ const dispatch = useDispatch();
 
  return (
    <List sx={{ width: '100%', maxWidth: 300, bgcolor: 'background.paper', top: '72px', position: 'fixed', right: 0, maxHeight: 500, overflowY: 'auto', zIndex: 1000 ,}}>
-     <CloseIcon sx={{ position: 'absolute', right: 2, color: 'black' ,top:0}} onClick={(event)=> close(event)} />
+     <CloseIcon sx={{ position: 'absolute', right: 2, color: 'black', top: 0 }} onClick={(event) => close(event)} data-testid='close_fav' />
       {(!favourites || favourites.length === 0) ?
             <div style={{ color: 'black', fontSize: 20, padding: 20 }}>No Favourites</div> :
-     favourites?.map((item: CharacterProps) => (<>
-        <ListItem key={item.uid} sx={{ padding: 1, margin: 2, backgroundColor: 'white', borderRadius: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <ListItemAvatar>
-          <Avatar sx={{ cursor: 'pointer' }}>
-             <DeleteIcon onClick={() => onRemoveFavourite(item)} />
-          </Avatar>
-        </ListItemAvatar>
-         <ListItemText sx={{color:'black'}} primary={item.name} secondary={item.gender} />
-       </ListItem>
-      </>
-     ))}
+        favourites?.map((item: CharacterProps) => (<>
+            <ListItem key={item.uid} sx={{ padding: 1, margin: 2, backgroundColor: 'white', borderRadius: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <ListItemAvatar>
+              <Avatar sx={{ cursor: 'pointer' }}>
+                <DeleteIcon onClick={() => onRemoveFavourite(item)} />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText sx={{color:'black'}} primary={item.name} secondary={item.gender} />
+          </ListItem>
+          </>
+        ))}
     </List>
   );
 };

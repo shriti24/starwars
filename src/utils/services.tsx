@@ -6,6 +6,7 @@
    throw new Error('Network response was not ok');
   }
   const characterDetails = await response.json();
+  
   return characterDetails;
  } catch (error) {
   console.error('Error fetching character details:', error);
@@ -16,9 +17,6 @@
 export async function getCharacterList (page: number): Promise<any> {
   try {
     const response = await fetch(`https://swapi.tech/api/people?page=${page}&limit=10`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
     const json = await response.json();
     return json;
   } catch (error) {

@@ -1,5 +1,5 @@
-import { Box,  Card, CircularProgress, Container, Grid,  Pagination } from '@mui/material';
-import React, { useEffect, useRef, useTransition } from 'react';
+import React from 'react';
+import { Box, Card, CircularProgress, Container, Grid, Pagination } from '@mui/material';
 import { CharacterProps, SearchedCharacterProps } from '../utils/types';
 import { fetchSearchCharacter, getCharacterList } from '../utils/services';
 import { Link } from 'react-router-dom';
@@ -31,25 +31,23 @@ const [loading, setLoading] = React.useState(true);
 const [error, setError] = React.useState<string | null>(null);
 const [page, setPage] = React.useState(1);
 const [searchResults, setSearchResults] = React.useState<SearchedCharacterProps[]>([]);
-const ref = useRef(0);
+const ref = React.useRef(0);
 
 const fetchCharacters = async () => {
   setLoading(true); 
-  setError(null);
-  setSearchResults([]);
   try {
      const {results, total_pages} = await getCharacterList(page);
 
-    if (results?.length === 0) {
-        setError('No characters found');
-        setLoading(false);
-        return;
-    }   
+    // if (results?.length === 0) {
+    //     setError('No characters found');
+    //     setLoading(false);
+    //     return;
+    // }   
     setCharacters([...results]);
     ref.current = total_pages;
    } catch (error) {
     if (error instanceof Error) {
-      setError(error.message);
+      setError(error?.message);
     } else {
       setError('An unknown error occurred');
     }
@@ -62,11 +60,11 @@ const fetchCharacters = async () => {
     setPage(pageNo);
   };
   
-  useEffect(() => {
+  React.useEffect(() => {
       fetchCharacters(); 
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
       fetchCharacters();
   }, [page]);
 
@@ -86,29 +84,32 @@ const fetchCharacters = async () => {
    
     setLoading(false);
   };
-
   
-  if(loading) {
-    return <CircularProgress />
+  let content = <CircularProgress />;
+  if (loading) {
+    content = <CircularProgress />;
+  } else if (error) {
+    content = <div style={{ color: 'red', fontSize: 20 }}>{error}</div>;
+  } else {
+    content = (<>
+      <Box sx={{ height: '80vh', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: 2 }}  >
+        {searchResults?.length > 0 ? searchResults.map((character) => (
+          <CharacterCard key={character?.uid} uid={character?.uid} name={character?.properties?.name} gender={character?.properties?.gender} />
+        )) : characters?.length > 0 && characters?.map((character) => (
+          <CharacterCard key={character?.uid} uid={character?.uid} name={character?.name} gender={character?.gender} />
+        ))}
+      </Box>
+      <Grid container justifyContent="flex-end">
+        <Pagination count={ref.current} page={page} onChange={(e, pageNo) => { handlePageChange(e, pageNo) }} sx={{ marginTop: "-50px", marginRight: 0, position: 'absolute' }} />
+      </Grid>
+    </>)
   }
-
+  
   return (
     <BackgroundContainer>
-    <Container sx={{ height: '85vh'  }} >
-        <SearchInput onSearch={handleSearch} onReset={fetchCharacters} />
-        {error ? <div style={{ color: 'red', fontSize: 20 }}>{error}</div> :
-          <>
-          <Box sx={{  height: '80vh', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', padding: 2 }}  >
-          {searchResults?.length > 0 ? searchResults.map((character) => (
-            <CharacterCard key={character?.uid} uid={character?.uid} name={character?.properties?.name} gender={character?.properties?.gender} />
-          )) : characters?.length > 0 && characters?.map((character) => (
-            <CharacterCard key={character?.uid} uid={character?.uid} name={character?.name} gender={character?.gender}  />
-          ))}
-          </Box>
-          <Grid container justifyContent="flex-end">
-          <Pagination count={ref.current} page={page} onChange={ (e, pageNo)=>{handlePageChange(e, pageNo)}} sx={{marginTop:"-50px" , marginRight:0, position:'absolute'}} />
-            </Grid>
-          </>}
+    <Container sx={{ height: '85vh'  }} data-testid="characters-component"> 
+      <SearchInput onSearch={handleSearch} onReset={fetchCharacters} />
+          {content}
       </Container>
       </BackgroundContainer>);
 };
