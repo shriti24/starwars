@@ -35,14 +35,15 @@ const ref = React.useRef(0);
 
 const fetchCharacters = async () => {
   setLoading(true); 
+  setSearchResults([]);
   try {
      const {results, total_pages} = await getCharacterList(page);
 
-    // if (results?.length === 0) {
-    //     setError('No characters found');
-    //     setLoading(false);
-    //     return;
-    // }   
+    if (results?.length === 0) {
+        setError('No characters found');
+        setLoading(false);
+        return;
+    }   
     setCharacters([...results]);
     ref.current = total_pages;
    } catch (error) {

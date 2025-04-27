@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745770947620" clover="3.2.0">
-  <project timestamp="1745770947620" name="All files">
-    <metrics statements="199" coveredstatements="24" conditionals="46" coveredconditionals="6" methods="61" coveredmethods="7" elements="306" coveredelements="37" complexity="0" loc="199" ncloc="199" packages="4" files="17" classes="17"/>
+<coverage generated="1745772097315" clover="3.2.0">
+  <project timestamp="1745772097315" name="All files">
+    <metrics statements="205" coveredstatements="24" conditionals="48" coveredconditionals="6" methods="61" coveredmethods="7" elements="314" coveredelements="37" complexity="0" loc="205" ncloc="205" packages="4" files="17" classes="17"/>
     <package name="src">
       <metrics statements="16" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="0"/>
       <file name="App.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/App.tsx">
@@ -34,7 +34,7 @@
       </file>
     </package>
     <package name="src.components">
-      <metrics statements="131" coveredstatements="20" conditionals="40" coveredconditionals="6" methods="43" coveredmethods="7"/>
+      <metrics statements="137" coveredstatements="20" conditionals="42" coveredconditionals="6" methods="43" coveredmethods="7"/>
       <file name="CharacterPage.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/components/CharacterPage.tsx">
         <metrics statements="26" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
@@ -65,7 +65,7 @@
         <line num="59" count="0" type="stmt"/>
       </file>
       <file name="Characters.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/components/Characters.tsx">
-        <metrics statements="48" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="10" coveredmethods="0"/>
+        <metrics statements="53" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="10" coveredmethods="0"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
@@ -80,40 +80,45 @@
         <line num="37" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
-        <line num="67" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
-        <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="76" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="77" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
-        <line num="81" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
         <line num="83" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="97" count="0" type="stmt"/>
-        <line num="99" count="0" type="stmt"/>
-        <line num="103" count="0" type="stmt"/>
-        <line num="108" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="92" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="98" count="0" type="stmt"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="109" count="0" type="stmt"/>
       </file>
       <file name="Content.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/components/Content.tsx">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -166,7 +171,7 @@
         <line num="30" count="0" type="stmt"/>
       </file>
       <file name="SearchInput.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/components/SearchInput.tsx">
-        <metrics statements="13" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="0"/>
+        <metrics statements="14" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="0"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
@@ -180,6 +185,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
       </file>
       <file name="useSkeleton.tsx" path="/Users/shritimac/Desktop/starwars/starwars/src/components/useSkeleton.tsx">
         <metrics statements="6" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>

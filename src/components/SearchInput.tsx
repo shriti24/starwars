@@ -44,6 +44,7 @@ const SearchInput = ({onSearch , onReset}: SearchInputProps) => {
         variant="contained"
         onClick={() => {
           startTransition(() => {
+            setSearchTerm('');
             onReset();
           });
         }}
