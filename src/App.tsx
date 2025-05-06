@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Characters from './components/Characters';
 import CharacterPage from './components/CharacterPage';
 import Favourites from './components/Favourites';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function App() {
 
@@ -50,8 +51,9 @@ const appRouter = createBrowserRouter([
                 <Header />
                 <Outlet/>
             </div> */}
-               
-        <RouterProvider router={appRouter} />
+        <QueryClientProvider client={new QueryClient()}>
+           <RouterProvider router={appRouter} />
+         </QueryClientProvider>
       </React.Fragment></Provider>);
 }
 
